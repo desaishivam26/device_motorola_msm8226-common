@@ -58,10 +58,6 @@ on init
     # Setup kernel dropbox permissions so that dropboxd can utilize it
     chown root qcom_diag /sys/kernel/dropbox/event
     chown root qcom_diag /sys/kernel/dropbox/data
-
-    # Symbols required for motorola blobs
-    export LD_PRELOAD libmoto.so:libboringssl-compat.so
-
     # Symbols required for motorola blobs
     export LD_PRELOAD "/system/lib/libmoto.so /system/lib/libboringssl-compat.so /system/vendor/lib/libsysutils_local.so"
     
@@ -164,6 +160,12 @@ on post-fs-data
 
     # Setup folder for native to transfer data to NativeDropBoxAgent
     mkdir /data/system/dropbox-add 0730 system qcom_diag
+
+    # Set correct permissions for UTAGS
+    exec /system/bin/chown -L mot_tcmd:system /dev/block/platform/msm_sdcc.1/by-name/utags
+    exec /system/bin/chown -L mot_tcmd:system /dev/block/platform/msm_sdcc.1/by-name/utagsBackup
+    exec /system/bin/chmod -L 0660 /dev/block/platform/msm_sdcc.1/by-name/utags
+    exec /system/bin/chmod -L 0660 /dev/block/platform/msm_sdcc.1/by-name/utagsBackup
 
     # backup directory for omadm
     mkdir /pds/public/omadm 0700 radio radio
