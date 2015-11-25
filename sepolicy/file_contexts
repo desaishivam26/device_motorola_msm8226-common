@@ -37,6 +37,12 @@
 
 # PDS
 /pds(/.*)?                                                  u:object_r:pds_file:s0
+/pds/public(/.*)?                                           u:object_r:pds_public_file:s0
+/pds/batt_health(/.*)?                                      u:object_r:pds_batt_file:s0
+
+# RIL
+/data/misc/cutback(/.*)?                                    u:object_r:cutback_data_file:s0
+/dev/socket/cutback                                         u:object_r:rild_socket:s0
 
 # Sensors
 /dev/akm8963                                                u:object_r:sensors_device:s0
